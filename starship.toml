@@ -1,71 +1,10 @@
+# starship - https://starship.rs/config/
 command_timeout = 5000
 
-# ── Línea 1: usuario, host, hora, dir, git ──────────────────────
 format = """
-[╭─](bold blue)[$username](bold yellow)\
-[$hostname](bold green)\
-[](blue)\
-[$time](bold bright-black)\
-[](blue)\
-[$directory]($style)\
-[$git_branch]($style)$git_status\
-$all
-[╰─](bold blue)[$character](bold green)"""
+[╭─](bold blue)$all
+[╰─](bold blue)$character"""
 
-# ── Usuario & host ───────────────────────────────────────────────
-[username]
-show_always = true
-style_user = "bold yellow"
-format = "[$user]($style)"
-
-[hostname]
-ssh_only = false
-style = "bold green"
-format = "[@$hostname]($style) "
-
-# ── Tiempo ───────────────────────────────────────────────────────
-[time]
-disabled = false
-format = " [🕐 $time]($style) "
-style = "bold bright-black"
-time_format = "%H:%M"
-
-# ── Directorio ───────────────────────────────────────────────────
-[directory]
-truncation_length = 4
-truncation_symbol = "…/"
-style = "bold cyan"
-fish_style_pwd_dir_length = 2
-format = " [$path]($style)"
-home_symbol = "~"
-use_os_path_sep = true
-
-# ── Git ──────────────────────────────────────────────────────────
-[git_branch]
-symbol = " "
-style = "bold purple"
-format = " on [$symbol$branch](bold purple)"
-
-[git_status]
-disabled = false
-style = "bold bright-black"
-format = '[\($all_status$ahead_behind\)]($style) '
-conflicted = "🏳"
-up_to_date = ""
-untracked = "…"
-ahead = "⇡${count}"
-behind = "⇣${count}"
-stashed = "📦"
-modified = "!"
-staged = "+"
-
-[git_metrics]
-disabled = false
-added_style = "bold green"
-deleted_style = "bold red"
-format = '(+$added_added_style)$deleted'
-
-# ── Lenguajes ────────────────────────────────────────────────────
 [nodejs]
 symbol = " "
 format = "via [$symbol$version](bold green) "
@@ -78,21 +17,21 @@ format = "via [$symbol$version](bold red) "
 symbol = " "
 format = "via [$symbol$version](bold yellow) "
 
-[golang]
-symbol = " "
-format = "via [$symbol$version](bold cyan) "
+[git_branch]
+symbol = " "
+format = "on [$symbol$branch](bold purple) "
+
+[git_status]
+disabled = true
 
 [package]
 symbol = "📦 "
 format = "via [$symbol$version](bold blue) "
 
-# ── Shell indicator ──────────────────────────────────────────────
 [shell]
 disabled = false
 format = "$indicator"
 
-# ── Prompt char ──────────────────────────────────────────────────
 [character]
 success_symbol = "[❯](bold green)"
 error_symbol = "[❯](bold red)"
-vicmd_symbol = "[❮](bold yellow)"
