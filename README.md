@@ -51,6 +51,14 @@ Pack completo para tener una terminal bonita, rápida y productiva en Ubuntu.
 |-------------|----------|
 | [gh](https://cli.github.com/) | GitHub CLI — crear repos, PRs, issues |
 | [atuin](https://github.com/atuinsh/atuin) | Historial con búsqueda fuzzy, sincronizado entre máquinas |
+| [starship](https://starship.rs/) | Prompt minimalista, rápido, portable |
+| [thefuck](https://github.com/nvbn/thefuck) | Corrige comandos automágicamente |
+| [trash-cli](https://github.com/andreafrancia/trash-cli) | `rm` que mueve a la papelera |
+| [procs](https://github.com/dalance/procs) | `ps` moderno con colores y búsqueda |
+| [bandwhich](https://github.com/imsnif/bandwhich) | Monitoreo de red en tiempo real |
+| [tokei](https://github.com/XAMPPRocky/tokei) | Contar líneas de código por lenguaje |
+| [hyperfine](https://github.com/sharkdp/hyperfine) | Benchmarkear comandos |
+| [zsh-abbr](https://github.com/olets/zsh-abbr) | Aliases que se expanden al escribir |
 
 ## Vista previa
 
@@ -160,6 +168,65 @@ gh repo view hguerrero-dev/terminal-pretty --web
 atuin search nala              # Buscar en historial
 atuin search --after "2024-01-01" nala
 atuin login && atuin sync      # Sincronizar entre máquinas
+```
+
+### 🚀 starship
+
+```bash
+# Ya configurado con ~/.config/starship.toml
+# Si quieres activarlo en vez de p10k, comenta ZSH_THEME en .zshrc
+# y descomenta: eval "$(starship init zsh)"
+```
+
+### 🤦 thefuck
+
+```bash
+sl                    # Escribiste mal "ls"
+fuck                  # Corrige automáticamente → ejecuta "ls"
+apt install htop      # Ups, no es sudo
+fuck                  # → sudo apt install htop
+```
+
+### 🗑️ trash-cli
+
+```bash
+rm archivo.zip        # En vez de borrar, mueve a la papelera
+trash-list            # Listar archivos en la papelera
+trash-restore         # Restaurar interactivamente
+trash-empty           # Vaciar papelera
+```
+
+### 🧠 procs
+
+```bash
+procs                 # Lista procesos con colores
+procs nala            # Buscar procesos por nombre
+procs --tree          # Vista jerárquica
+```
+
+### 📡 bandwhich
+
+```bash
+bandwhich             # Mostrar uso de red en tiempo real
+bandwhich -n wlo1     # Monitorear interfaz específica
+```
+
+### 📊 tokei
+
+```bash
+tokei .               # Contar líneas de código en el directorio actual
+tokei src/            # Solo en src/
+tokei --types rust    # Solo Rust
+```
+
+### ⏱️ hyperfine
+
+```bash
+hyperfine 'rg "foo" src/' 'grep -r "foo" src/'
+# Compara velocidad de rg vs grep
+
+hyperfine 'ls' --warmup 3
+# Benchmark con 3 ejecuciones de calentamiento
 ```
 
 ## Requisitos

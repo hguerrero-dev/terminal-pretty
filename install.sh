@@ -108,6 +108,37 @@ if ! command -v doggo &>/dev/null; then
     rm -f /tmp/doggo /tmp/doggo.tar.gz
 fi
 
+# ---- 🚀 starship (prompt minimalista) ----
+install_pkg starship starship
+
+# ---- 🤦 thefuck (corrige comandos) ----
+install_pkg fuck thefuck
+
+# ---- 🗑️ trash-cli (rm seguro) ----
+install_pkg trash trash-cli
+
+# ---- 🧠 procs (ps moderno) ----
+install_pkg procs procs
+
+# ---- 📊 tokei (contar lineas de codigo) ----
+install_pkg tokei tokei
+
+# ---- ⏱️ hyperfine (benchmark de comandos) ----
+install_pkg hyperfine hyperfine
+
+# ---- 📡 bandwhich (monitoreo de red) ----
+if ! command -v bandwhich &>/dev/null; then
+    echo ">>> Instalando bandwhich..."
+    which cargo &>/dev/null || sudo apt install -y cargo
+    cargo install bandwhich 2>/dev/null || true
+fi
+
+# ---- ⚡ zsh-abbr (aliases que se expanden) ----
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-abbr" ]; then
+    echo ">>> Instalando zsh-abbr..."
+    git clone --depth=1 https://github.com/olets/zsh-abbr "$ZSH_CUSTOM/plugins/zsh-abbr"
+fi
+
 # ---- Zsh plugins (autosuggestions + syntax-highlighting) ----
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 mkdir -p "$ZSH_CUSTOM/plugins"
@@ -124,8 +155,8 @@ fi
 
 # ---- Agregar plugins al .zshrc ----
 ZSHRC="$HOME/.zshrc"
-if grep -q "plugins=(git)" "$ZSHRC" 2>/dev/null; then
-    sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/' "$ZSHRC"
+if grep -q "plugins=(git" "$ZSHRC" 2>/dev/null; then
+    sed -i 's/plugins=(git[^)]*)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-abbr)/' "$ZSHRC"
 fi
 
 # ---- Agregar zoxide init al .zshrc ----
@@ -140,6 +171,20 @@ if ! grep -q "atuin init" "$ZSHRC" 2>/dev/null; then
     echo "" >> "$ZSHRC"
     echo "# ---- atuin (historial sincronizado) ----" >> "$ZSHRC"
     echo "eval \"\$(atuin init zsh)\"" >> "$ZSHRC"
+fi
+
+# ---- Agregar starship init al .zshrc ----
+if ! grep -q "starship init" "$ZSHRC" 2>/dev/null; then
+    echo "" >> "$ZSHRC"
+    echo "# ---- starship (prompt minimalista) ----" >> "$ZSHRC"
+    echo "eval \"\$(starship init zsh)\"" >> "$ZSHRC"
+fi
+
+# ---- Agregar thefuck init al .zshrc ----
+if ! grep -q "thefuck.*alias" "$ZSHRC" 2>/dev/null; then
+    echo "" >> "$ZSHRC"
+    echo "# ---- thefuck (corrige comandos) ----" >> "$ZSHRC"
+    echo "eval \"\$(thefuck --alias)\"" >> "$ZSHRC"
 fi
 
 # ---- Agregar aliases generales al .zshrc ----
@@ -191,9 +236,23 @@ echo "🌐 Red:"
 echo "   http <url>           - curl con colores y JSON formateado"
 echo "   dig <dominio>        - doggo, version moderna con colores"
 echo ""
-echo "🎨 Terminal:"
+echo "🎨 Prompt:"
+echo "   starship             - prompt minimalista rapido (opcional)"
 echo "   autosuggestions      - zsh sugiere comandos al escribir"
 echo "   syntax-highlighting  - colorea comandos mientras tipeas"
+echo ""
+echo "🗑️ Calidad de vida:"
+echo "   fuck                 - corrige comandos (escribe 'fuck' despues de un error)"
+echo "   rm                   - trash-cli: mueve a papelera en vez de borrar"
+echo "   zsh-abbr             - aliases que se expanden al escribir"
+echo ""
+echo "📊 Monitoreo:"
+echo "   procs                - ps moderno con colores y busqueda"
+echo "   bandwhich            - ver que proceso consume internet"
+echo ""
+echo "🧠 Dev:"
+echo "   tokei                - contar lineas de codigo por lenguaje"
+echo "   hyperfine            - benchmarkear comandos"
 echo "   atuin                - historial con busqueda fuzzy"
 echo "                       - sincronizado entre maquinas"
 echo ""
