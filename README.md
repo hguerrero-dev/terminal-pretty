@@ -59,6 +59,13 @@ Pack completo para tener una terminal bonita, rápida y productiva en Ubuntu.
 | [tokei](https://github.com/XAMPPRocky/tokei) | Contar líneas de código por lenguaje |
 | [hyperfine](https://github.com/sharkdp/hyperfine) | Benchmarkear comandos |
 | [zsh-abbr](https://github.com/olets/zsh-abbr) | Aliases que se expanden al escribir |
+| [lazydocker](https://github.com/jesseduffield/lazydocker) | TUI interactiva para Docker |
+
+### 🐋 Docker
+| Herramienta | Para qué |
+|-------------|----------|
+| [lazydocker](https://github.com/jesseduffield/lazydocker) | TUI para contenedores, imágenes, logs, volúmenes |
+| [dev-stack](https://github.com/hguerrero-dev/dev-stack) | Stack completo (PHP + Node + MySQL + Nginx) con Docker |
 
 ## Vista previa
 
@@ -85,6 +92,20 @@ chmod +x install.sh
 ./install.sh
 ```
 
+### Stack de desarrollo (PHP + Node + MySQL + Nginx + Docker)
+
+```bash
+git clone https://github.com/hguerrero-dev/dev-stack.git
+cd dev-stack
+docker compose up -d
+# http://localhost:8080
+```
+
+O instalá todo nativo con:
+```bash
+./install.sh
+```
+
 ## Aliases disponibles
 
 | Comando | Equivale a |
@@ -106,6 +127,15 @@ chmod +x install.sh
 | `tmux` | `tmux -2` |
 | `tnew` | `tmux new -s` |
 | `ta` | `tmux attach -t` |
+| `d` | `docker` |
+| `dc` | `docker compose` |
+| `dcu` | `docker compose up -d` |
+| `dcd` | `docker compose down` |
+| `dcl` | `docker compose logs -f` |
+| `dps` | `docker ps` |
+| `di` | `docker images` |
+| `dex` | `docker exec -it` |
+| `lzd` | `lazydocker` |
 
 ## Post-instalación
 
@@ -172,10 +202,21 @@ atuin login && atuin sync      # Sincronizar entre máquinas
 
 ### 🚀 starship
 
+El prompt incluye:
+
+| Módulo | Cuando se muestra |
+|--------|------------------|
+| `╭─` / `╰─` | Siempre (borde superior e inferior) |
+| `ORAH` | Nombre del directorio actual |
+| `on  main` | Rama de git activa |
+| `via  v22.22.1` | Versión de Node.js (si hay `package.json`) |
+| `via 🐘 v8.5.4` | Versión de PHP/PostgreSQL |
+| `🐋 default` | Cuando hay `Dockerfile` o `docker-compose.yml` (requiere Docker) |
+| `❯` / `❯` | Prompt verde (éxito) / rojo (error) |
+
 ```bash
-# Ya configurado con ~/.config/starship.toml
-# Si quieres activarlo en vez de p10k, comenta ZSH_THEME en .zshrc
-# y descomenta: eval "$(starship init zsh)"
+# Configuracion en ~/.config/starship.toml
+# Para personalizar: starship preset nerd-font-symbols -o ~/.config/starship.toml
 ```
 
 ### 🤦 thefuck
@@ -202,6 +243,35 @@ trash-empty           # Vaciar papelera
 procs                 # Lista procesos con colores
 procs nala            # Buscar procesos por nombre
 procs --tree          # Vista jerárquica
+```
+
+### 🐋 Docker
+
+```bash
+# TUI interactiva (contenedores, imagenes, logs, volumenes)
+lzd
+
+# Comandos rapidos
+dcu                         # docker compose up -d
+dcl                         # docker compose logs -f
+dcd                         # docker compose down
+dps                         # docker ps
+dex contenedor bash         # docker exec -it contenedor bash
+```
+
+El prompt de starship muestra `🐋 default` cuando estás en un directorio con `Dockerfile` o `docker-compose.yml`. Si conectás a otro host Docker via `$DOCKER_HOST`, se actualiza automáticamente.
+
+> ⚠️ Si ves `permission denied`, necesitás que el grupo docker tome efecto:
+> ```bash
+> exec su -l $USER
+> ```
+
+Stack de desarrollo completo con PHP + Node + MySQL + Nginx:
+```bash
+git clone https://github.com/hguerrero-dev/dev-stack.git
+cd dev-stack
+docker compose up -d
+# http://localhost:8080
 ```
 
 ### 📡 bandwhich
