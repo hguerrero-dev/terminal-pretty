@@ -27,6 +27,16 @@ alias curlp="curl -o"
 alias cpv="progress -m"
 alias monitor-cp="watch -n 1 'progress 2>/dev/null || echo sin operaciones'"
 
+# ---- 🌐 http + doggo ----
+alias http="http --pretty=all"
+alias dig="doggo"
+
+# ---- 🖥️ tmux ----
+alias tmux="tmux -2"
+alias tnew="tmux new -s"
+alias tls="tmux ls"
+alias ta="tmux attach -t"
+
 # ---- 🧹 utilidades ----
 alias df="df -h"
 alias du="du -h"

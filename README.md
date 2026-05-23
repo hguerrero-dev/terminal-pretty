@@ -33,6 +33,24 @@ Pack completo para tener una terminal bonita, rápida y productiva en Ubuntu.
 | [bat](https://github.com/sharkdp/bat) | `cat` con syntax highlighting |
 | [pv](http://www.ivarch.com/programs/pv.shtml) | Progreso + velocidad + ETA en pipes |
 | [progress](https://github.com/Xfennec/progress) | Monitorear `cp`, `mv`, `dd` en ejecución |
+| [httpie](https://httpie.io/) | `curl` con colores y JSON formateado |
+| [doggo](https://github.com/mr-karan/doggo) | `dig` moderno con colores |
+
+### 🖥️ Terminal multiplexer
+| Herramienta | Para qué |
+|-------------|----------|
+| [tmux](https://github.com/tmux/tmux) | Divide la terminal en paneles, sesiones persistentes |
+
+### 󰇄 File manager
+| Herramienta | Para qué |
+|-------------|----------|
+| [yazi](https://github.com/sxyazi/yazi) | Navegador de archivos en terminal con vim keys, previews |
+
+### 🚀 Productivity
+| Herramienta | Para qué |
+|-------------|----------|
+| [gh](https://cli.github.com/) | GitHub CLI — crear repos, PRs, issues |
+| [atuin](https://github.com/atuinsh/atuin) | Historial con búsqueda fuzzy, sincronizado entre máquinas |
 
 ## Vista previa
 
@@ -75,6 +93,11 @@ chmod +x install.sh
 | `cpv` | `progress -m` |
 | `wget` | `wget -q --show-progress` |
 | `curlp` | `curl -o` |
+| `http` | `http --pretty=all` |
+| `dig` | `doggo` |
+| `tmux` | `tmux -2` |
+| `tnew` | `tmux new -s` |
+| `ta` | `tmux attach -t` |
 
 ## Post-instalación
 

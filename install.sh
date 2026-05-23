@@ -75,6 +75,39 @@ git config --global delta.line-numbers true
 # ---- lazygit (TUI para git) ----
 install_pkg lazygit lazygit
 
+# ---- 🖥️ tmux (terminal multiplexer) ----
+install_pkg tmux tmux
+
+# ---- 🌐 httpie (curl con colores) ----
+install_pkg http httpie
+
+# ---- gh (GitHub CLI) ----
+install_pkg gh gh
+
+# ---- 🐚 atuin (historial sincronizado) ----
+install_pkg atuin atuin
+
+# ---- 󰇄 yazi (file manager en terminal) ----
+if ! command -v yazi &>/dev/null; then
+    echo ">>> Instalando yazi..."
+    YAZI_VER=$(curl -s https://api.github.com/repos/sxyazi/yazi/releases/latest | grep tag_name | cut -d'"' -f4)
+    wget -qO /tmp/yazi.zip "https://github.com/sxyazi/yazi/releases/download/${YAZI_VER}/yazi-x86_64-unknown-linux-gnu.zip"
+    unzip -qo /tmp/yazi.zip -d /tmp/yazi 2>/dev/null
+    sudo cp /tmp/yazi/yazi-x86_64-unknown-linux-gnu/yazi /usr/local/bin/
+    sudo cp /tmp/yazi/yazi-x86_64-unknown-linux-gnu/ya /usr/local/bin/
+    rm -rf /tmp/yazi /tmp/yazi.zip
+fi
+
+# ---- doggo (dig moderno con colores) ----
+if ! command -v doggo &>/dev/null; then
+    echo ">>> Instalando doggo..."
+    DOGGO_VER=$(curl -s https://api.github.com/repos/mr-karan/doggo/releases/latest | grep tag_name | cut -d'"' -f4)
+    wget -qO /tmp/doggo.tar.gz "https://github.com/mr-karan/doggo/releases/download/${DOGGO_VER}/doggo_${DOGGO_VER#v}_linux_amd64.tar.gz"
+    tar xzf /tmp/doggo.tar.gz -C /tmp
+    sudo cp /tmp/doggo /usr/local/bin/
+    rm -f /tmp/doggo /tmp/doggo.tar.gz
+fi
+
 # ---- Zsh plugins (autosuggestions + syntax-highlighting) ----
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 mkdir -p "$ZSH_CUSTOM/plugins"
@@ -100,6 +133,13 @@ if ! grep -q "zoxide init" "$ZSHRC" 2>/dev/null; then
     echo "" >> "$ZSHRC"
     echo "# ---- zoxide (cd inteligente) ----" >> "$ZSHRC"
     echo "eval \"\$(zoxide init zsh)\"" >> "$ZSHRC"
+fi
+
+# ---- Agregar atuin init al .zshrc ----
+if ! grep -q "atuin init" "$ZSHRC" 2>/dev/null; then
+    echo "" >> "$ZSHRC"
+    echo "# ---- atuin (historial sincronizado) ----" >> "$ZSHRC"
+    echo "eval \"\$(atuin init zsh)\"" >> "$ZSHRC"
 fi
 
 # ---- Agregar aliases generales al .zshrc ----
@@ -131,15 +171,31 @@ echo ""
 echo "🐙 Git:"
 echo "   lazygit              - TUI interactiva para git"
 echo "   git diff             - con delta (colores + side-by-side)"
+echo "   gh                   - GitHub CLI (crear repos, PRs, issues)"
+echo ""
+echo "🖥️ Terminal multiplexer:"
+echo "   tmux                 - paneles y sesiones persistentes"
+echo "   tnew <name>          - crear nueva sesion tmux"
+echo "   ta                   - adjuntarse a sesion tmux"
 echo ""
 echo "📦 Sistema:"
 echo "   nala install <pkg>   - apt con barras de progreso"
 echo "   progress             - monitorear cp/mv en ejecucion"
 echo "   cat                  - con syntax highlighting"
 echo ""
+echo "󰇄 Archivos:"
+echo "   yazi                 - navegador de archivos en terminal"
+echo "   (navega con vim keys, preview de codigo/imagenes)"
+echo ""
+echo "🌐 Red:"
+echo "   http <url>           - curl con colores y JSON formateado"
+echo "   dig <dominio>        - doggo, version moderna con colores"
+echo ""
 echo "🎨 Terminal:"
 echo "   autosuggestions      - zsh sugiere comandos al escribir"
 echo "   syntax-highlighting  - colorea comandos mientras tipeas"
+echo "   atuin                - historial con busqueda fuzzy"
+echo "                       - sincronizado entre maquinas"
 echo ""
 echo "Abre una nueva terminal para aplicar todo."
 echo ""
