@@ -5,12 +5,11 @@ format = """
 [╭─](bold blue)$all
 [╰─](bold blue)$character"""
 
-# Activar cuando tengas Docker instalado:
-# [docker_context]
-# disabled = false
-# symbol = "🐋 "
-# style = "bold blue"
-# only_with_files = true
+[docker_context]
+disabled = false
+symbol = "🐋 "
+style = "bold blue"
+only_with_files = true
 
 [nodejs]
 symbol = " "
