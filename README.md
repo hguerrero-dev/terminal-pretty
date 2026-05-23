@@ -108,6 +108,60 @@ chmod +x install.sh
 5. `z do` y presiona Tab para ver opciones de zoxide
 6. `lazygit` para git visual
 
+## Uso básico de cada herramienta
+
+### 🖥️ tmux
+
+```bash
+tnew proyecto         # Crear sesión persistente
+Ctrl+b d              # Desconectarse (la sesión sigue activa)
+ta                    # Re-conectarse a la sesión
+tls                   # Listar sesiones
+```
+
+### 󰇄 yazi
+
+```bash
+yazi                  # Abrir navegador
+j/k                   # Navegar arriba/abajo
+l                     # Entrar a carpeta
+h                     # Volver atrás
+q                     # Salir
+```
+
+### 🌐 httpie
+
+```bash
+http https://api.github.com/users/hguerrero-dev
+http POST https://httpbin.org/post name="test" value=42
+http -h https://example.com
+```
+
+### doggo
+
+```bash
+dig google.com
+dig google.com MX
+dig google.com @8.8.8.8
+```
+
+### gh
+
+```bash
+gh repo create mi-repo --public
+gh pr create
+gh issue list
+gh repo view hguerrero-dev/terminal-pretty --web
+```
+
+### atuin
+
+```bash
+atuin search nala              # Buscar en historial
+atuin search --after "2024-01-01" nala
+atuin login && atuin sync      # Sincronizar entre máquinas
+```
+
 ## Requisitos
 
 - Ubuntu 24.04+ o derivadas
