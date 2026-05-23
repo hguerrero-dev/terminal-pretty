@@ -5,7 +5,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "=========================================="
 echo " terminal-pretty"
-echo " Todo en uno: eza + nala + pv + progress"
+echo " Pack completo: eza + nala + fzf + zoxide"
+echo " + ripgrep + fd + delta + lazygit + ..."
 echo "=========================================="
 
 # ---- Git config global ----
@@ -15,45 +16,99 @@ if [ -z "$(git config --global user.name 2>/dev/null)" ]; then
     git config --global user.email "hguerrero.dev@proton.me"
 fi
 
-# ---- eza (ls moderno con iconos) ----
-if ! command -v eza &>/dev/null; then
-    echo ">>> Instalando eza..."
-    sudo apt update && sudo apt install -y eza
-fi
+# ---- Funcion auxiliar para instalar ----
+install_pkg() {
+    if ! command -v "$1" &>/dev/null; then
+        echo ">>> Instalando $1..."
+        sudo apt install -y "$2"
+    fi
+}
+
+# ---- Actualizar indices ----
+sudo apt update
+
+# ---- 📁 eza (ls con iconos) ----
+install_pkg eza eza
 mkdir -p "$HOME/.config/eza"
 cp "$SCRIPT_DIR/eza-config.yml" "$HOME/.config/eza/config.yml"
 
-# ---- nala (apt con barras de progreso) ----
-if ! command -v nala &>/dev/null; then
-    echo ">>> Instalando nala..."
-    sudo apt install -y nala
-fi
+# ---- 📦 nala (apt con barras de progreso) ----
+install_pkg nala nala
 
-# ---- pv (Pipe Viewer) ----
-if ! command -v pv &>/dev/null; then
-    echo ">>> Instalando pv..."
-    sudo apt install -y pv
-fi
+# ---- 📊 pv (Pipe Viewer) ----
+install_pkg pv pv
 
 # ---- progress (Coreutils Progress Viewer) ----
-if ! command -v progress &>/dev/null; then
-    echo ">>> Instalando progress..."
-    sudo apt install -y progress
-fi
+install_pkg progress progress
 
 # ---- bat (cat con syntax highlighting) ----
-if ! command -v batcat &>/dev/null; then
-    echo ">>> Instalando bat..."
-    sudo apt install -y bat
+install_pkg batcat bat
+
+# ---- 🔍 fzf (buscador fuzzy) ----
+install_pkg fzf fzf
+# Activar key bindings y auto-completion para zsh (si no se activaron solos)
+if [ ! -f "$HOME/.fzf.zsh" ]; then
+    /usr/share/fzf/install --key-bindings --completion --no-update-rc 2>/dev/null || true
 fi
 
-# ---- Agregar aliases a .zshrc ----
+# ---- zoxide (cd inteligente) ----
+install_pkg zoxide zoxide
+
+# ---- ripgrep (grep ultra rapido) ----
+install_pkg rg ripgrep
+
+# ---- fd (find rapido) ----
+install_pkg fdfind fd-find
+
+# ---- tealdeer (tldr rapido en Rust) ----
+install_pkg tldr tealdeer
+
+# ---- delta (git diff con colores) ----
+install_pkg delta git-delta
+# Configurar delta como pager de git
+git config --global core.pager "delta"
+git config --global interactive.diffFilter "delta --color-only"
+git config --global delta.navigate true
+git config --global delta.side-by-side true
+git config --global delta.line-numbers true
+
+# ---- lazygit (TUI para git) ----
+install_pkg lazygit lazygit
+
+# ---- Zsh plugins (autosuggestions + syntax-highlighting) ----
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+mkdir -p "$ZSH_CUSTOM/plugins"
+
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+    echo ">>> Instalando zsh-autosuggestions..."
+    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+fi
+
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
+    echo ">>> Instalando zsh-syntax-highlighting..."
+    git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+fi
+
+# ---- Agregar plugins al .zshrc ----
+ZSHRC="$HOME/.zshrc"
+if grep -q "plugins=(git)" "$ZSHRC" 2>/dev/null; then
+    sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/' "$ZSHRC"
+fi
+
+# ---- Agregar zoxide init al .zshrc ----
+if ! grep -q "zoxide init" "$ZSHRC" 2>/dev/null; then
+    echo "" >> "$ZSHRC"
+    echo "# ---- zoxide (cd inteligente) ----" >> "$ZSHRC"
+    echo "eval \"\$(zoxide init zsh)\"" >> "$ZSHRC"
+fi
+
+# ---- Agregar aliases generales al .zshrc ----
 ALIAS_FILE="$SCRIPT_DIR/.zshrc-aliases"
 if [ -f "$ALIAS_FILE" ]; then
-    if ! grep -q "source.*zshrc-aliases" "$HOME/.zshrc" 2>/dev/null; then
-        echo "" >> "$HOME/.zshrc"
-        echo "# ---- terminal-pretty aliases ----" >> "$HOME/.zshrc"
-        echo "source \"$ALIAS_FILE\"" >> "$HOME/.zshrc"
+    if ! grep -q "source.*zshrc-aliases" "$ZSHRC" 2>/dev/null; then
+        echo "" >> "$ZSHRC"
+        echo "# ---- terminal-pretty aliases ----" >> "$ZSHRC"
+        echo "source \"$ALIAS_FILE\"" >> "$ZSHRC"
     fi
 fi
 
@@ -62,24 +117,29 @@ echo "=========================================="
 echo " Instalacion completada."
 echo "=========================================="
 echo ""
-echo "Resumen de comandos disponibles:"
+echo "📁 Navegacion:"
+echo "   ll / ls / lt / tree  - eza con iconos"
+echo "   fzf                  - Ctrl+T (buscar archivos)"
+echo "                       - Ctrl+R (historial)"
+echo "   z <dir>              - cd inteligente con zoxide"
 echo ""
-echo "  📁 eza:"
-echo "     ll   - Listado detallado con iconos"
-echo "     ls   - Listado simple con iconos"
-echo "     lt   - Vista de arbol"
-echo "     tree - Vista de arbol"
+echo "🔍 Busqueda:"
+echo "   rg <patron>          - grep ultra rapido"
+echo "   fd <nombre>          - find ultra rapido"
+echo "   tldr <comando>       - ejemplos rapidos de uso"
 echo ""
-echo "  📦 nala:"
-echo "     nala install <pkg>  - Instalar con barras de progreso"
-echo "     nala update         - Actualizar indices"
-echo "     nala upgrade        - Actualizar sistema"
-echo "     nala search <pkg>   - Buscar paquetes"
+echo "🐙 Git:"
+echo "   lazygit              - TUI interactiva para git"
+echo "   git diff             - con delta (colores + side-by-side)"
 echo ""
-echo "  📊 pv + progress:"
-echo "     progress            - Ver progreso de cp/mv en ejecucion"
-echo "     <cmd> | pv          - Ver progreso en pipes"
-echo "     curl -# <url>       - Descarga con barra de progreso"
+echo "📦 Sistema:"
+echo "   nala install <pkg>   - apt con barras de progreso"
+echo "   progress             - monitorear cp/mv en ejecucion"
+echo "   cat                  - con syntax highlighting"
 echo ""
-echo "Abre una nueva terminal para aplicar los cambios."
+echo "🎨 Terminal:"
+echo "   autosuggestions      - zsh sugiere comandos al escribir"
+echo "   syntax-highlighting  - colorea comandos mientras tipeas"
+echo ""
+echo "Abre una nueva terminal para aplicar todo."
 echo ""

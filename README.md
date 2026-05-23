@@ -1,15 +1,54 @@
 # terminal-pretty
 
-Un solo comando para tener la terminal bonita: `ls` con iconos, `apt` con barras de progreso, descargas con ETA y colores en todo.
+Pack completo para tener una terminal bonita, rápida y productiva en Ubuntu.
 
 ## Incluye
 
+### 📁 Navegación
 | Herramienta | Para qué |
 |-------------|----------|
-| [eza](https://github.com/eza-community/eza) | `ls`, `ll`, `tree` con iconos Nerd Font |
+| [eza](https://github.com/eza-community/eza) | `ls` con iconos Nerd Font, colores, directorios primero |
+| [fzf](https://github.com/junegunn/fzf) | Buscador fuzzy — `Ctrl+T` archivos, `Ctrl+R` historial |
+| [zoxide](https://github.com/ajeetdsouza/zoxide) | `cd` inteligente — `z doc` te lleva a Documentos desde cualquier lado |
+| [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Sugiere comandos mientras escribes (como fish) |
+| [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) | Colorea comandos mientras tipeas |
+
+### 🔍 Búsqueda y reemplazo
+| Herramienta | Para qué |
+|-------------|----------|
+| [ripgrep (rg)](https://github.com/BurntSushi/ripgrep) | `grep` 10x más rápido |
+| [fd](https://github.com/sharkdp/fd) | `find` más rápido y bonito |
+| [tealdeer (tldr)](https://github.com/dbrgn/tealdeer) | Ejemplos prácticos de comandos |
+
+### 🐙 Git
+| Herramienta | Para qué |
+|-------------|----------|
+| [delta](https://github.com/dandavison/delta) | `git diff` con colores y syntax highlighting |
+| [lazygit](https://github.com/jesseduffield/lazygit) | TUI interactiva para git |
+
+### 📦 Sistema
+| Herramienta | Para qué |
+|-------------|----------|
 | [nala](https://gitlab.com/volian/nala) | `apt` con barras de progreso y colores |
+| [bat](https://github.com/sharkdp/bat) | `cat` con syntax highlighting |
 | [pv](http://www.ivarch.com/programs/pv.shtml) | Progreso + velocidad + ETA en pipes |
 | [progress](https://github.com/Xfennec/progress) | Monitorear `cp`, `mv`, `dd` en ejecución |
+
+## Vista previa
+
+```
+❯ ll
+  Descargas         archivo.zip
+  Documentos        script.js
+  Escritorio        index.php
+
+❯ rg "function" src/ -n
+ src/main.js:12:function hello() { ... }
+
+❯ z doc          # te lleva a ~/Documentos
+❯ tldr tar       # ejemplos rapidos
+❯ lazygit        # TUI interactiva
+```
 
 ## Quick start
 
@@ -20,43 +59,34 @@ chmod +x install.sh
 ./install.sh
 ```
 
-## Vista previa
-
-```
-❯ ll
-  Descargas         archivo.zip
-  Documentos        script.js
-  Escritorio        index.php
-  Imágenes          foto.png
-  Música            cancion.mp3
-
-❯ nala install firefox
-  ━━━━━━━━━━━━━━━━━━━━ 100% ⏱ 0:00:02
-
-❯ progress
-  [cp] copiando.iso  45.2% (112.5 MiB / 248.7 MiB)
-```
-
 ## Aliases disponibles
 
 | Comando | Equivale a |
 |---------|------------|
-| `ll` | `eza -la --icons` |
-| `ls` | `eza --icons` |
+| `ll` / `ls` | `eza` con iconos |
 | `lt` / `tree` | `eza -T` (árbol) |
-| `apt` | `nala` (barras de progreso) |
-| `apti` | `nala install` |
-| `aptu` | `nala update` |
-| `aptug` | `nala upgrade` |
-| `wget` | `wget -q --show-progress` |
-| `curlp` | `curl -o` (con progreso) |
-| `cpv` | `progress -m` |
-| `cat` | `batcat` (syntax highlighting) |
+| `apt` | `nala` |
+| `cat` | `batcat` |
+| `fd` | `fdfind` |
+| `rg` | `ripgrep` |
 | `df` | `df -h` |
 | `free` | `free -h` |
+| `ip` | `ip -c` |
+| `cpv` | `progress -m` |
+| `wget` | `wget -q --show-progress` |
+| `curlp` | `curl -o` |
+
+## Post-instalación
+
+1. Abre una nueva terminal
+2. Empieza a escribir un comando y ve las sugerencias
+3. `Ctrl+T` para buscar archivos con fzf
+4. `Ctrl+R` para buscar en el historial
+5. `z do` y presiona Tab para ver opciones de zoxide
+6. `lazygit` para git visual
 
 ## Requisitos
 
 - Ubuntu 24.04+ o derivadas
 - Zsh + Oh My Zsh
-- Una Nerd Font en la terminal (JetBrains Mono ya incluye iconos)
+- Nerd Font en la terminal (JetBrains Mono)

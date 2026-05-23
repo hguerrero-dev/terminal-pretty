@@ -2,7 +2,7 @@
 alias ls="eza --icons=auto --color=auto --group-directories-first"
 alias ll="eza --icons=auto --color=auto --group-directories-first -la"
 alias la="eza --icons=auto --color=auto --group-directories-first -a"
-alias lt="eza --icons=auto --color=auto --group-directories-first -T"
+alias lt="eza --icons=auto --color=auto --group-directories-first -T --level=3"
 alias tree="eza --icons=auto --color=auto --group-directories-first -T"
 alias l1="eza --icons=auto --color=auto --group-directories-first -1"
 
@@ -16,11 +16,14 @@ alias aptu="nala update"
 alias aptug="nala upgrade"
 alias aptsu="nala show"
 
-# ---- 📊 progress bars para descargas ----
+# ---- 🔍 fd (find) ----
+alias fd="fdfind"
+
+# ---- 📈 progress bars ----
 alias wget="wget -q --show-progress"
 alias curlp="curl -o"
 
-# ---- 📈 monitorear operaciones del sistema ----
+# ---- 📊 monitorear operaciones ----
 alias cpv="progress -m"
 alias monitor-cp="watch -n 1 'progress 2>/dev/null || echo sin operaciones'"
 
@@ -29,3 +32,4 @@ alias df="df -h"
 alias du="du -h"
 alias free="free -h"
 alias cat="batcat --paging=never 2>/dev/null || cat"
+alias ip="ip -c"
