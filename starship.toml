@@ -1,4 +1,6 @@
 # starship - https://starship.rs/config/
+command_timeout = 5000
+
 format = """
 [╭─](bold blue)$all
 [╰─](bold blue)$character"""
@@ -20,7 +22,7 @@ symbol = " "
 format = "on [$symbol$branch](bold purple) "
 
 [git_status]
-format = "[$all_status$ahead_behind](bold yellow) "
+disabled = true
 
 [package]
 symbol = "📦 "
