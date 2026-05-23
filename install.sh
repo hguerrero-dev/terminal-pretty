@@ -75,6 +75,12 @@ git config --global delta.line-numbers true
 # ---- lazygit (TUI para git) ----
 install_pkg lazygit lazygit
 
+# ---- lazydocker (TUI para docker) ----
+if ! command -v lazydocker &>/dev/null; then
+    echo ">>> Instalando lazydocker..."
+    curl -sS https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+fi
+
 # ---- 🖥️ tmux (terminal multiplexer) ----
 install_pkg tmux tmux
 
@@ -223,6 +229,11 @@ echo "   tokei                - contar lineas de codigo por lenguaje"
 echo "   hyperfine            - benchmarkear comandos"
 echo "   atuin                - historial con busqueda fuzzy"
 echo "                       - sincronizado entre maquinas"
+echo ""
+echo "🐋 Docker:"
+echo "   lazydocker           - TUI interactiva para docker"
+echo "   d / dc / dcu / dcd   - atajos para docker y compose"
+echo "   lzd                  - alias de lazydocker"
 echo ""
 echo "Abre una nueva terminal para aplicar todo."
 echo ""
