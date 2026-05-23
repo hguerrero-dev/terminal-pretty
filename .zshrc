@@ -16,7 +16,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # ---- terminal-pretty aliases ----
-source "$HOME/.config/terminal-pretty/zshrc-aliases"
+source "$HOME/.terminal-pretty/.zshrc-aliases"
 
 # ---- zoxide (cd inteligente) ----
 eval "$(zoxide init zsh)"
