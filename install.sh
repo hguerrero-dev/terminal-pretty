@@ -75,10 +75,21 @@ git config --global delta.line-numbers true
 # ---- lazygit (TUI para git) ----
 install_pkg lazygit lazygit
 
+# ---- docker group (permisos sin sudo) ----
+if command -v docker &>/dev/null && ! groups "$USER" | grep -q docker; then
+    echo ">>> Agregando $USER al grupo docker..."
+    sudo usermod -aG docker "$USER"
+    echo "⚠️  Cierra sesion y vuelve a entrar para aplicar cambios de grupo docker."
+fi
+
 # ---- lazydocker (TUI para docker) ----
 if ! command -v lazydocker &>/dev/null; then
     echo ">>> Instalando lazydocker..."
-    curl -sS https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+    LAZYVER=$(curl -s https://api.github.com/repos/jesseduffield/lazydocker/releases/latest | grep tag_name | cut -d'"' -f4)
+    wget -qO /tmp/lazydocker.tar.gz "https://github.com/jesseduffield/lazydocker/releases/download/${LAZYVER}/lazydocker_${LAZYVER#v}_Linux_x86_64.tar.gz"
+    tar xzf /tmp/lazydocker.tar.gz -C /tmp
+    sudo mv /tmp/lazydocker /usr/local/bin/
+    rm -f /tmp/lazydocker /tmp/lazydocker.tar.gz
 fi
 
 # ---- 🖥️ tmux (terminal multiplexer) ----

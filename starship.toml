@@ -2,14 +2,15 @@
 command_timeout = 5000
 
 format = """
-[╭─](bold blue)$all$docker_context
+[╭─](bold blue)$all
 [╰─](bold blue)$character"""
 
-[docker_context]
-disabled = false
-symbol = "🐋 "
-style = "bold blue"
-only_with_files = true
+# Activar cuando tengas Docker instalado:
+# [docker_context]
+# disabled = false
+# symbol = "🐋 "
+# style = "bold blue"
+# only_with_files = true
 
 [nodejs]
 symbol = " "
