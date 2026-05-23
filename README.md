@@ -44,13 +44,16 @@ chmod +x install.sh
 | `ll` | `eza -la --icons` |
 | `ls` | `eza --icons` |
 | `lt` / `tree` | `eza -T` (árbol) |
-| `apt` | `nala` |
+| `apt` | `nala` (barras de progreso) |
 | `apti` | `nala install` |
 | `aptu` | `nala update` |
 | `aptug` | `nala upgrade` |
-| `curl` | `curl -#` (barra) |
 | `wget` | `wget -q --show-progress` |
+| `curlp` | `curl -o` (con progreso) |
 | `cpv` | `progress -m` |
+| `cat` | `batcat` (syntax highlighting) |
+| `df` | `df -h` |
+| `free` | `free -h` |
 
 ## Requisitos
 
