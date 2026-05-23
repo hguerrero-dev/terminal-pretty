@@ -85,10 +85,11 @@ fi
 # ---- lazydocker (TUI para docker) ----
 if ! command -v lazydocker &>/dev/null; then
     echo ">>> Instalando lazydocker..."
+    mkdir -p "$HOME/.local/bin"
     LAZYVER=$(curl -s https://api.github.com/repos/jesseduffield/lazydocker/releases/latest | grep tag_name | cut -d'"' -f4)
     wget -qO /tmp/lazydocker.tar.gz "https://github.com/jesseduffield/lazydocker/releases/download/${LAZYVER}/lazydocker_${LAZYVER#v}_Linux_x86_64.tar.gz"
     tar xzf /tmp/lazydocker.tar.gz -C /tmp
-    sudo mv /tmp/lazydocker /usr/local/bin/
+    mv /tmp/lazydocker "$HOME/.local/bin/"
     rm -f /tmp/lazydocker /tmp/lazydocker.tar.gz
 fi
 
