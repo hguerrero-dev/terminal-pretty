@@ -6,7 +6,7 @@ alias lt="eza --icons=auto --color=auto --group-directories-first -T"
 alias tree="eza --icons=auto --color=auto --group-directories-first -T"
 alias l1="eza --icons=auto --color=auto --group-directories-first -1"
 
-# ---- 📦 nala (apt con progreso) ----
+# ---- 📦 nala (apt con barras de progreso) ----
 alias apt="nala"
 alias apti="nala install"
 alias aptr="nala remove"
@@ -16,7 +16,16 @@ alias aptu="nala update"
 alias aptug="nala upgrade"
 alias aptsu="nala show"
 
-# ---- 📊 progress bars ----
-alias curl="curl -#"
+# ---- 📊 progress bars para descargas ----
 alias wget="wget -q --show-progress"
+alias curlp="curl -o"
+
+# ---- 📈 monitorear operaciones del sistema ----
 alias cpv="progress -m"
+alias monitor-cp="watch -n 1 'progress 2>/dev/null || echo sin operaciones'"
+
+# ---- 🧹 utilidades ----
+alias df="df -h"
+alias du="du -h"
+alias free="free -h"
+alias cat="batcat --paging=never 2>/dev/null || cat"

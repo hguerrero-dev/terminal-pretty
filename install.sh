@@ -41,6 +41,12 @@ if ! command -v progress &>/dev/null; then
     sudo apt install -y progress
 fi
 
+# ---- bat (cat con syntax highlighting) ----
+if ! command -v batcat &>/dev/null; then
+    echo ">>> Instalando bat..."
+    sudo apt install -y bat
+fi
+
 # ---- Agregar aliases a .zshrc ----
 ALIAS_FILE="$SCRIPT_DIR/.zshrc-aliases"
 if [ -f "$ALIAS_FILE" ]; then
