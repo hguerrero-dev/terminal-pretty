@@ -1,0 +1,22 @@
+# ---- 📁 eza (ls con iconos) ----
+alias ls="eza --icons=auto --color=auto --group-directories-first"
+alias ll="eza --icons=auto --color=auto --group-directories-first -la"
+alias la="eza --icons=auto --color=auto --group-directories-first -a"
+alias lt="eza --icons=auto --color=auto --group-directories-first -T"
+alias tree="eza --icons=auto --color=auto --group-directories-first -T"
+alias l1="eza --icons=auto --color=auto --group-directories-first -1"
+
+# ---- 📦 nala (apt con progreso) ----
+alias apt="nala"
+alias apti="nala install"
+alias aptr="nala remove"
+alias aptp="nala purge"
+alias apts="nala search"
+alias aptu="nala update"
+alias aptug="nala upgrade"
+alias aptsu="nala show"
+
+# ---- 📊 progress bars ----
+alias curl="curl -#"
+alias wget="wget -q --show-progress"
+alias cpv="progress -m"
