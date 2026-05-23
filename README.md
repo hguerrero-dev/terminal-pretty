@@ -229,6 +229,36 @@ hyperfine 'ls' --warmup 3
 # Benchmark con 3 ejecuciones de calentamiento
 ```
 
+## Prompts disponibles
+
+El `.zshrc` incluido usa **Starship** por defecto. Si prefieres Powerlevel10k:
+
+### Cambiar a Powerlevel10k
+
+```bash
+# 1. Instalar p10k si no lo tienes
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+  ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+
+# 2. Editar ~/.zshrc
+#    - Comentar: eval "$(starship init zsh)"
+#    - Descomentar:
+#        ZSH_THEME="powerlevel10k/powerlevel10k"
+#        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# 3. Ejecutar para personalizar
+p10k configure
+```
+
+### Volver a Starship
+
+```bash
+# Editar ~/.zshrc
+#    - Comentar las lineas de p10k (ZSH_THEME, instant-prompt, .p10k.zsh)
+#    - Descomentar: eval "$(starship init zsh)"
+#    - O simplemente reinstalar: cd ~/terminal-pretty && ./install.sh
+```
+
 ## Requisitos
 
 - Ubuntu 24.04+ o derivadas

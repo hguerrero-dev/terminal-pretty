@@ -153,49 +153,17 @@ if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
     git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 fi
 
-# ---- Agregar plugins al .zshrc ----
-ZSHRC="$HOME/.zshrc"
-if grep -q "plugins=(git" "$ZSHRC" 2>/dev/null; then
-    sed -i 's/plugins=(git[^)]*)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-abbr)/' "$ZSHRC"
-fi
+# ---- Copiar .zshrc completo ----
+echo ">>> Copiando .zshrc..."
+cp "$SCRIPT_DIR/.zshrc" "$HOME/.zshrc"
 
-# ---- Agregar zoxide init al .zshrc ----
-if ! grep -q "zoxide init" "$ZSHRC" 2>/dev/null; then
-    echo "" >> "$ZSHRC"
-    echo "# ---- zoxide (cd inteligente) ----" >> "$ZSHRC"
-    echo "eval \"\$(zoxide init zsh)\"" >> "$ZSHRC"
-fi
+# ---- Copiar aliases a ~/.config/terminal-pretty/ ----
+mkdir -p "$HOME/.config/terminal-pretty"
+cp "$SCRIPT_DIR/.zshrc-aliases" "$HOME/.config/terminal-pretty/zshrc-aliases"
 
-# ---- Agregar atuin init al .zshrc ----
-if ! grep -q "atuin init" "$ZSHRC" 2>/dev/null; then
-    echo "" >> "$ZSHRC"
-    echo "# ---- atuin (historial sincronizado) ----" >> "$ZSHRC"
-    echo "eval \"\$(atuin init zsh)\"" >> "$ZSHRC"
-fi
-
-# ---- Agregar starship init al .zshrc ----
-if ! grep -q "starship init" "$ZSHRC" 2>/dev/null; then
-    echo "" >> "$ZSHRC"
-    echo "# ---- starship (prompt minimalista) ----" >> "$ZSHRC"
-    echo "eval \"\$(starship init zsh)\"" >> "$ZSHRC"
-fi
-
-# ---- Agregar thefuck init al .zshrc ----
-if ! grep -q "thefuck.*alias" "$ZSHRC" 2>/dev/null; then
-    echo "" >> "$ZSHRC"
-    echo "# ---- thefuck (corrige comandos) ----" >> "$ZSHRC"
-    echo "eval \"\$(thefuck --alias)\"" >> "$ZSHRC"
-fi
-
-# ---- Agregar aliases generales al .zshrc ----
-ALIAS_FILE="$SCRIPT_DIR/.zshrc-aliases"
-if [ -f "$ALIAS_FILE" ]; then
-    if ! grep -q "source.*zshrc-aliases" "$ZSHRC" 2>/dev/null; then
-        echo "" >> "$ZSHRC"
-        echo "# ---- terminal-pretty aliases ----" >> "$ZSHRC"
-        echo "source \"$ALIAS_FILE\"" >> "$ZSHRC"
-    fi
-fi
+# ---- Copiar starship config ----
+mkdir -p "$HOME/.config"
+cp "$SCRIPT_DIR/starship.toml" "$HOME/.config/starship.toml"
 
 echo ""
 echo "=========================================="
