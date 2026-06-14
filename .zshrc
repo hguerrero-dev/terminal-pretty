@@ -1,33 +1,22 @@
-export ZSH="$HOME/.oh-my-zsh"
-
-# Elige tu prompt: descomenta solo UNO
-# ---- Powerlevel10k ----
-# ZSH_THEME="powerlevel10k/powerlevel10k"
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# ---- Starship (prompt por defecto) ----
+# ---- Starship (prompt) ----
 eval "$(starship init zsh)"
 
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-
-source $ZSH/oh-my-zsh.sh
+# ---- Plugins (sin Oh My Zsh) ----
+source "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # ---- terminal-pretty aliases ----
 source "$HOME/.config/terminal-pretty/zshrc-aliases"
 
-# ---- zoxide (cd inteligente) ----
-eval "$(zoxide init zsh)"
+# ---- zoxide (cd inteligente) - lazy load ----
+z() { unset -f z; eval "$(zoxide init zsh)"; z "$@"; }
 
-# ---- atuin (historial sincronizado) ----
-eval "$(atuin init zsh)"
+# ---- atuin (historial sincronizado) - lazy load ----
+atuin() { unset -f atuin; eval "$(atuin init zsh)"; atuin "$@"; }
 
-# ---- thefuck (corrige comandos) ----
-eval "$(thefuck --alias)"
+# ---- thefuck (corrige comandos) - lazy load ----
+fuck() { unset -f fuck; eval "$(thefuck --alias)"; fuck "$@"; }
 
 export PATH="$HOME/.local/bin:$PATH"
-
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+alias ff="fastfetch --pipe false"
 fastfetch --pipe false
