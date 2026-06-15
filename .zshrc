@@ -23,11 +23,11 @@ source "$HOME/.config/terminal-pretty/zshrc-aliases"
 # ---- zoxide (cd inteligente) - lazy load ----
 z() { unset -f z; eval "$(zoxide init zsh)"; z "$@"; }
 
-# ---- atuin (historial sincronizado) - lazy load ----
-atuin() { unset -f atuin; eval "$(atuin init zsh)"; atuin "$@"; }
+# ---- atuin (historial sincronizado) ----
+eval "$(atuin init zsh)"
 
-# ---- thefuck (corrige comandos) - lazy load ----
-fuck() { unset -f fuck; eval "$(thefuck --alias)"; fuck "$@"; }
+# ---- thefuck (corrige comandos) ----
+eval "$(thefuck --alias)"
 
 export PATH="$HOME/.local/bin:$PATH"
 
