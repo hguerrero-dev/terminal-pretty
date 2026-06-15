@@ -5,6 +5,9 @@ eval "$(starship init zsh)"
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
+# ---- Opciones de zsh ----
+setopt AUTO_CD
+
 # ---- Completion ----
 autoload -Uz compinit && compinit
 
